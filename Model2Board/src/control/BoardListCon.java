@@ -59,12 +59,18 @@ public class BoardListCon extends HttpServlet {
 		Vector<BoardBean> v = bdao.getAllBoard(startRow,endRow);
 		number = count - (currentPage -1) * pageSize;
 		
+		//수정,삭제시 비밀번호가 일치하지 않다면 메세지 뿌려줌
+		String msg = (String) request.getAttribute("msg");
+		
 		//BoardList.jsp 쪽으로 request 객체에 담아서 넘겨줌
 		request.setAttribute("v", v);
 		request.setAttribute("number", number);
 		request.setAttribute("pageSize", pageSize);
 		request.setAttribute("count", count);
 		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("msg", msg);
+		
+	
 		
 		RequestDispatcher dis = request.getRequestDispatcher("BoardList.jsp");
 		dis.forward(request, response);
